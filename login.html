@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход / Регистрация</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <h1>Вход / Регистрация</h1>
+</header>
+<main>
+    <div class="form-container">
+        <input type="text" id="username" placeholder="Логин" required>
+        <input type="password" id="password" placeholder="Пароль" required>
+        <input type="password" id="confirm-password" placeholder="Повторите пароль" required>
+        <button type="button" onclick="registerUser()">Регистрация</button>
+        <button type="button" id="login-btn" onclick="loginUser()">Войти</button>
+    </div>
+</main>
+<script>
+    function registerUser() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        if (password !== confirmPassword) {
+            alert("Пароли не совпадают!");
+            return;
+        }
+
+        // Имитируем сохранение данных
+        localStorage.setItem('username', username);
+        localStorage.setItem('password', password);
+
+        alert("Регистрация успешна! Теперь вы можете войти.");
+        document.getElementById('login-btn').disabled = false;
+    }
+
+    function loginUser() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const storedUsername = localStorage.getItem('username');
+        const storedPassword = localStorage.getItem('password');
+
+        if (username === storedUsername && password === storedPassword) {
+            alert("Вход успешен!");
+            location.href = 'generate.html'; // Перенаправление на страницу генерации
+        } else {
+            alert("Неверный логин или пароль.");
+        }
+    }
+</script>
+</body>
+</html>
